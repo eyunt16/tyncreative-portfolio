@@ -5,7 +5,7 @@ import Cursor from './components/Cursor';
 import ScrollProgress from './components/ScrollProgress';
 import Navbar from './components/Navbar';
 import HeroSection from './components/Hero';
-import ServicesSection from './components/ServicesSection';
+import SkillsSection from './components/SkillsSection';
 import ProjectsSection from './components/ProjectShowcase';
 import AboutSection from './components/AboutSection';
 import ContactSection from './components/ContactSection';
@@ -16,7 +16,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function App() {
   useEffect(() => {
-    // Refresh ScrollTrigger on resize
     const onResize = () => ScrollTrigger.refresh();
     window.addEventListener('resize', onResize);
     return () => window.removeEventListener('resize', onResize);
@@ -35,7 +34,7 @@ export default function App() {
       {/* Page content */}
       <main>
         <HeroSection />
-        <ServicesSection />
+        <SkillsSection />
         <ProjectsSection />
         <AboutSection />
         <ContactSection />

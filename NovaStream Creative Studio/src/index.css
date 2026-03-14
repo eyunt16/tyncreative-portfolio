@@ -3,40 +3,146 @@
 
 /* ═══════════════════════════════════════════════════════════════════
    NOVASTREAM DESIGN SYSTEM — CSS CUSTOM PROPERTIES
+   Material Design 3 · Google Motion · Easy-on-eyes palette
    ═══════════════════════════════════════════════════════════════════ */
+
+/* Shared brand tokens */
 :root {
-  /* Colors */
-  --color-bg:          #050508;
-  --color-bg-surface:  #0c0c14;
-  --color-bg-elevated: #11111e;
-
-  --color-cyan:        #00f5ff;
-  --color-violet:      #bf00ff;
-  --color-pink:        #ff006e;
-  --color-white:       #f0f4ff;
-  --color-muted:       #6b7280;
-
-  /* Neon Glows */
-  --glow-cyan:         0 0 20px rgba(0, 245, 255, 0.4), 0 0 60px rgba(0, 245, 255, 0.15);
-  --glow-violet:       0 0 20px rgba(191, 0, 255, 0.4), 0 0 60px rgba(191, 0, 255, 0.15);
-  --glow-pink:         0 0 20px rgba(255, 0, 110, 0.4), 0 0 60px rgba(255, 0, 110, 0.15);
-
-  /* Gradients */
-  --gradient-brand:    linear-gradient(135deg, #00f5ff 0%, #bf00ff 50%, #ff006e 100%);
-  --gradient-subtle:   linear-gradient(135deg, rgba(0,245,255,0.15) 0%, rgba(191,0,255,0.15) 100%);
-
-  /* Glassmorphism */
-  --glass-bg:          rgba(255, 255, 255, 0.04);
-  --glass-border:      rgba(255, 255, 255, 0.08);
-  --glass-blur:        blur(20px);
-
   /* Typography */
-  --font-sans:         'Inter', system-ui, sans-serif;
-  --font-display:      'Space Grotesk', 'Inter', sans-serif;
+  --font-sans:    'Inter', system-ui, sans-serif;
+  --font-display: 'Space Grotesk', 'Inter', sans-serif;
 
-  /* Motion */
+  /* ── Google / Material Motion easing ── */
+  --ease-standard:   cubic-bezier(0.2, 0, 0, 1);      /* calm, natural */
+  --ease-emphasized: cubic-bezier(0.05, 0.7, 0.1, 1); /* spring feel  */
+  --ease-decelerate: cubic-bezier(0, 0, 0, 1);         /* enter slide  */
+  --ease-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15); /* exit slide   */
+  /* Legacy aliases kept for components that already use them */
   --ease-out-expo:     cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out-quart: cubic-bezier(0.77, 0, 0.175, 1);
+
+  /* Duration scale */
+  --dur-short:  150ms;
+  --dur-medium: 250ms;
+  --dur-long:   400ms;
+  --dur-xlong:  600ms;
+
+  /* Glassmorphism */
+  --glass-blur: blur(20px);
+}
+
+/* ─── DARK THEME (default) ─── */
+html.dark {
+  color-scheme: dark;
+
+  /* Surfaces — warm, soft dark (MD3 dark surface family) */
+  --color-bg:          #0f0f13;
+  --color-bg-surface:  #18181f;
+  --color-bg-elevated: #23222b;
+
+  /* Text */
+  --color-white:       #e6e0ef;   /* on-surface, never pure white */
+  --color-muted:       #938f99;   /* on-surface-variant */
+  --color-muted-2:     #6b6573;   /* dimmer helper text */
+
+  /* Accent — softer Google-inspired blue, not harsh neon */
+  --color-cyan:        #a8c7fa;   /* MD3-ish: Google Blue 200 */
+  --color-violet:      #cba6f7;   /* Muted violet (Catppuccin Mauve) */
+  --color-pink:        #f38ba8;   /* Muted rose */
+
+  /* Gradients */
+  --gradient-brand:    linear-gradient(135deg, #a8c7fa 0%, #cba6f7 50%, #f38ba8 100%);
+  --gradient-subtle:   linear-gradient(135deg, rgba(168,199,250,0.10) 0%, rgba(203,166,247,0.10) 100%);
+
+  /* Glows — very soft, eye-safe */
+  --glow-cyan:         0 2px 16px rgba(168,199,250,0.20), 0 8px 40px rgba(168,199,250,0.08);
+  --glow-violet:       0 2px 16px rgba(203,166,247,0.20), 0 8px 40px rgba(203,166,247,0.08);
+
+  /* Glass */
+  --glass-bg:          rgba(255, 255, 255, 0.05);
+  --glass-border:      rgba(255, 255, 255, 0.09);
+
+  /* Form fields */
+  --field-bg:          rgba(255, 255, 255, 0.05);
+  --field-border:      rgba(255, 255, 255, 0.11);
+  --field-color:       #e6e0ef;
+  --field-placeholder: #6b6573;
+
+  /* Navbar */
+  --nav-bg-scrolled:   rgba(15, 15, 19, 0.88);
+  --nav-bg-top:        rgba(15, 15, 19, 0.30);
+  --nav-border:        rgba(255, 255, 255, 0.08);
+
+  /* Cards */
+  --card-bg:           rgba(255, 255, 255, 0.03);
+  --card-border:       rgba(255, 255, 255, 0.07);
+  --card-overlay-from: rgba(10, 10, 14, 0.94);
+  --card-overlay-mid:  rgba(10, 10, 14, 0.45);
+
+  /* Mobile drawer */
+  --drawer-bg:         rgba(15, 15, 19, 0.97);
+
+  /* MD3 state layers */
+  --state-hover:       rgba(168, 199, 250, 0.08);
+  --state-pressed:     rgba(168, 199, 250, 0.12);
+  --state-focus:       rgba(168, 199, 250, 0.12);
+}
+
+/* ─── LIGHT THEME ─── */
+html.light {
+  color-scheme: light;
+
+  /* Surfaces — Material You light (warm white, not cold grey) */
+  --color-bg:          #fef7ff;   /* MD3 surface */
+  --color-bg-surface:  #f3edf7;   /* surface-variant */
+  --color-bg-elevated: #ffffff;
+
+  /* Text */
+  --color-white:       #1c1b1f;   /* on-surface */
+  --color-muted:       #49454f;   /* on-surface-variant */
+  --color-muted-2:     #79747e;
+
+  /* Accent — Google Blue (accessible, not neon) */
+  --color-cyan:        #1a73e8;   /* Google Blue 600 */
+  --color-violet:      #6750a4;   /* MD3 primary violet */
+  --color-pink:        #b5006a;   /* MD3 tertiary */
+
+  /* Gradients */
+  --gradient-brand:    linear-gradient(135deg, #1a73e8 0%, #6750a4 50%, #b5006a 100%);
+  --gradient-subtle:   linear-gradient(135deg, rgba(26,115,232,0.07) 0%, rgba(103,80,164,0.07) 100%);
+
+  /* Glows — subtle elevation shadows (not neon) */
+  --glow-cyan:         0 1px 8px rgba(26,115,232,0.18), 0 4px 24px rgba(26,115,232,0.09);
+  --glow-violet:       0 1px 8px rgba(103,80,164,0.18), 0 4px 24px rgba(103,80,164,0.09);
+
+  /* Glass */
+  --glass-bg:          rgba(255, 255, 255, 0.78);
+  --glass-border:      rgba(0, 0, 0, 0.07);
+
+  /* Form fields */
+  --field-bg:          rgba(0, 0, 0, 0.04);
+  --field-border:      rgba(0, 0, 0, 0.12);
+  --field-color:       #1c1b1f;
+  --field-placeholder: #79747e;
+
+  /* Navbar */
+  --nav-bg-scrolled:   rgba(254, 247, 255, 0.92);
+  --nav-bg-top:        rgba(254, 247, 255, 0.45);
+  --nav-border:        rgba(0, 0, 0, 0.07);
+
+  /* Cards */
+  --card-bg:           rgba(255, 255, 255, 0.80);
+  --card-border:       rgba(0, 0, 0, 0.07);
+  --card-overlay-from: rgba(243, 237, 247, 0.94);
+  --card-overlay-mid:  rgba(243, 237, 247, 0.48);
+
+  /* Mobile drawer */
+  --drawer-bg:         rgba(254, 247, 255, 0.97);
+
+  /* MD3 state layers */
+  --state-hover:       rgba(26, 115, 232, 0.07);
+  --state-pressed:     rgba(26, 115, 232, 0.11);
+  --state-focus:       rgba(26, 115, 232, 0.11);
 }
 
 /* ═══════════════════════════════════════════════════════════════════
@@ -61,32 +167,47 @@ body {
   cursor: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition:
+    background-color var(--dur-long) var(--ease-standard),
+    color            var(--dur-long) var(--ease-standard);
 }
 
-/* Hide default cursor globally — custom cursor takes over */
+/* Hide default cursor globally */
 a, button, [role="button"], input, textarea, select {
   cursor: none;
 }
 
-/* Custom selection color */
+/* Selection */
 ::selection {
-  background: rgba(0, 245, 255, 0.3);
-  color: #fff;
+  background: rgba(168, 199, 250, 0.28);
+  color: inherit;
+}
+html.light ::selection {
+  background: rgba(26, 115, 232, 0.18);
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: var(--color-bg);
-}
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--color-bg); }
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 245, 255, 0.3);
+  background: rgba(168, 199, 250, 0.28);
   border-radius: 3px;
+  transition: background var(--dur-medium);
 }
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 245, 255, 0.6);
+html.light ::-webkit-scrollbar-thumb { background: rgba(26, 115, 232, 0.22); }
+::-webkit-scrollbar-thumb:hover { background: var(--color-cyan); opacity: 0.5; }
+
+/* ═══════════════════════════════════════════════════════════════════
+   THEME TRANSITION — smooth whole-page crossfade on toggle
+   ═══════════════════════════════════════════════════════════════════ */
+html.theme-transitioning,
+html.theme-transitioning * {
+  transition:
+    background-color var(--dur-long) var(--ease-standard),
+    border-color     var(--dur-long) var(--ease-standard),
+    color            var(--dur-long) var(--ease-standard),
+    box-shadow       var(--dur-long) var(--ease-standard),
+    fill             var(--dur-long) var(--ease-standard) !important;
 }
 
 /* ═══════════════════════════════════════════════════════════════════
@@ -100,22 +221,22 @@ a, button, [role="button"], input, textarea, select {
 }
 
 .glass-card {
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--glass-bg);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  border: 1px solid var(--glass-border);
   border-radius: 16px;
-  transition: all 0.4s var(--ease-out-expo);
+  transition: all var(--dur-long) var(--ease-standard);
 }
 
 .glass-card:hover {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(0, 245, 255, 0.2);
+  border-color: var(--color-cyan);
   box-shadow: var(--glow-cyan);
+  transform: translateY(-3px);
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   NEON TEXT & GLOW
+   TEXT UTILITIES
    ═══════════════════════════════════════════════════════════════════ */
 .text-gradient {
   background: var(--gradient-brand);
@@ -124,16 +245,11 @@ a, button, [role="button"], input, textarea, select {
   background-clip: text;
 }
 
-.neon-cyan {
-  color: var(--color-cyan);
-  text-shadow: 0 0 10px rgba(0, 245, 255, 0.5), 0 0 30px rgba(0, 245, 255, 0.3);
-}
+/* ═══════════════════════════════════════════════════════════════════
+   BUTTONS — Google Material 3 style
+   ═══════════════════════════════════════════════════════════════════ */
 
-.neon-violet {
-  color: var(--color-violet);
-  text-shadow: 0 0 10px rgba(191, 0, 255, 0.5), 0 0 30px rgba(191, 0, 255, 0.3);
-}
-
+/* Filled button (primary action) */
 .btn-glow {
   position: relative;
   background: var(--gradient-brand);
@@ -144,46 +260,96 @@ a, button, [role="button"], input, textarea, select {
   font-weight: 600;
   letter-spacing: 0.02em;
   overflow: hidden;
-  transition: all 0.3s var(--ease-out-expo);
+  transition:
+    box-shadow  var(--dur-medium) var(--ease-standard),
+    transform   var(--dur-medium) var(--ease-emphasized),
+    opacity     var(--dur-short)  var(--ease-standard);
+  /* MD3-style elevation */
+  box-shadow: 0 1px 3px rgba(0,0,0,0.24), 0 2px 6px rgba(0,0,0,0.12);
 }
 
+/* State layer overlay */
 .btn-glow::before {
   content: '';
   position: absolute;
-  inset: -2px;
-  background: var(--gradient-brand);
-  border-radius: inherit;
-  filter: blur(16px);
-  opacity: 0;
-  z-index: -1;
-  transition: opacity 0.3s;
-}
-
-.btn-glow:hover::before {
-  opacity: 0.7;
+  inset: 0;
+  background: rgba(255,255,255,0);
+  transition: background var(--dur-short) var(--ease-standard);
 }
 
 .btn-glow:hover {
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: var(--glow-cyan);
+  transform: translateY(-2px) scale(1.015);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.22), 0 8px 24px rgba(0,0,0,0.11), var(--glow-cyan);
 }
 
+.btn-glow:hover::before {
+  background: rgba(255,255,255,0.08);
+}
+
+.btn-glow:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.24);
+}
+
+/* Ripple on click */
+.btn-glow::after {
+  content: '';
+  position: absolute;
+  inset: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255,255,255,0.25);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition:
+    width 0.5s var(--ease-decelerate),
+    height 0.5s var(--ease-decelerate),
+    opacity 0.4s;
+  opacity: 0;
+}
+
+.btn-glow:active::after {
+  width: 300px;
+  height: 300px;
+  opacity: 0;
+  transition: 0s;
+}
+
+/* Ghost / Outlined button */
 .btn-ghost {
   position: relative;
   background: transparent;
-  border: 1px solid rgba(0, 245, 255, 0.4);
+  border: 1.5px solid var(--color-cyan);
   border-radius: 50px;
   color: var(--color-cyan);
   font-family: var(--font-sans);
   font-weight: 500;
-  transition: all 0.3s var(--ease-out-expo);
+  overflow: hidden;
+  transition:
+    background var(--dur-medium) var(--ease-standard),
+    border-color var(--dur-medium) var(--ease-standard),
+    box-shadow var(--dur-medium) var(--ease-standard),
+    transform var(--dur-medium) var(--ease-emphasized);
 }
 
+.btn-ghost::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--state-hover);
+  opacity: 0;
+  transition: opacity var(--dur-short) var(--ease-standard);
+}
+
+.btn-ghost:hover::before { opacity: 1; }
+
 .btn-ghost:hover {
-  background: rgba(0, 245, 255, 0.1);
-  border-color: var(--color-cyan);
   box-shadow: var(--glow-cyan);
   transform: translateY(-2px);
+}
+
+.btn-ghost:active {
+  transform: translateY(0) scale(0.98);
 }
 
 /* ═══════════════════════════════════════════════════════════════════
@@ -194,15 +360,11 @@ a, button, [role="button"], input, textarea, select {
 }
 
 @media (min-width: 768px) {
-  .section-padding {
-    padding: 9rem 4rem;
-  }
+  .section-padding { padding: 9rem 4rem; }
 }
 
 @media (min-width: 1280px) {
-  .section-padding {
-    padding: 10rem 6rem;
-  }
+  .section-padding { padding: 10rem 6rem; }
 }
 
 .section-label {
@@ -223,50 +385,113 @@ a, button, [role="button"], input, textarea, select {
   width: 2rem;
   height: 1px;
   background: var(--color-cyan);
-  box-shadow: 0 0 6px var(--color-cyan);
+  opacity: 0.7;
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   ANIMATIONS & KEYFRAMES
+   ANIMATIONS & KEYFRAMES — Google Material Motion style
    ═══════════════════════════════════════════════════════════════════ */
-@keyframes neonPulse {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0.5; }
+
+/* Classic entrance: fade + slight rise (MD3 "slide up") */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
+/* Scale + fade for cards/badges */
+@keyframes fadeScale {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Gentle float (less extreme travel, more comfortable) */
 @keyframes floatY {
   0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-12px); }
+  50%       { transform: translateY(-8px); }
 }
 
-@keyframes shimmer {
-  0%   { background-position: -200% center; }
-  100% { background-position: 200% center; }
+/* Pulse — gentler */
+@keyframes softPulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.55; }
 }
 
-@keyframes rotateSlow {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
-
+/* Gradient shift */
 @keyframes gradientShift {
   0%   { background-position: 0% 50%; }
   50%  { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
 
+/* Shimmer for loading / skeleton */
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+/* Slow rotation */
+@keyframes rotateSlow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Material ripple */
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* Icon morph (sun↔moon) */
+@keyframes iconSpinIn {
+  from { transform: rotate(-90deg) scale(0.5); opacity: 0; }
+  to   { transform: rotate(0deg)   scale(1);   opacity: 1; }
+}
+
+/* Neon pulse — legacy alias */
+@keyframes neonPulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
+}
+
+/* Utility classes */
 .animate-float {
-  animation: floatY 6s ease-in-out infinite;
+  animation: floatY 7s var(--ease-in-out-quart) infinite;
+}
+
+.animate-soft-pulse {
+  animation: softPulse 3.5s ease-in-out infinite;
 }
 
 .animate-neon-pulse {
   animation: neonPulse 3s ease-in-out infinite;
 }
 
+.animate-slide-up {
+  animation: slideInUp var(--dur-long) var(--ease-decelerate) both;
+}
+
 .gradient-animated {
-  background: linear-gradient(-45deg, #00f5ff, #bf00ff, #ff006e, #00f5ff);
+  background: linear-gradient(-45deg, var(--color-cyan), var(--color-violet), var(--color-pink), var(--color-cyan));
   background-size: 300% 300%;
-  animation: gradientShift 8s ease infinite;
+  animation: gradientShift 10s ease infinite;
 }
 
 /* ═══════════════════════════════════════════════════════════════════
@@ -276,26 +501,29 @@ a, button, [role="button"], input, textarea, select {
   position: fixed;
   top: 0;
   left: 0;
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
   background: var(--color-cyan);
   border-radius: 50%;
   pointer-events: none;
   z-index: 99999;
-  box-shadow: 0 0 10px var(--color-cyan), 0 0 20px rgba(0,245,255,0.5);
+  transition: background var(--dur-medium) var(--ease-standard);
 }
 
 .cursor-ring {
   position: fixed;
   top: 0;
   left: 0;
-  width: 40px;
-  height: 40px;
-  border: 1.5px solid rgba(0, 245, 255, 0.6);
+  width: 38px;
+  height: 38px;
+  border: 1.5px solid var(--color-cyan);
   border-radius: 50%;
   pointer-events: none;
   z-index: 99998;
-  mix-blend-mode: difference;
+  opacity: 0.45;
+  transition:
+    border-color var(--dur-medium) var(--ease-standard),
+    opacity var(--dur-medium) var(--ease-standard);
 }
 
 /* ═══════════════════════════════════════════════════════════════════
@@ -310,7 +538,6 @@ a, button, [role="button"], input, textarea, select {
   background: var(--gradient-brand);
   transform-origin: left;
   z-index: 10000;
-  box-shadow: 0 0 8px rgba(0,245,255,0.8);
 }
 
 /* ═══════════════════════════════════════════════════════════════════
@@ -330,12 +557,16 @@ a, button, [role="button"], input, textarea, select {
   border-radius: 50px;
   font-size: 0.75rem;
   font-weight: 500;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.09em;
   text-transform: uppercase;
-  background: rgba(0, 245, 255, 0.08);
-  border: 1px solid rgba(0, 245, 255, 0.2);
+  background: var(--state-hover);
+  border: 1px solid var(--glass-border);
   color: var(--color-cyan);
   margin-bottom: 1.5rem;
+  transition:
+    background var(--dur-medium) var(--ease-standard),
+    border-color var(--dur-medium) var(--ease-standard),
+    color var(--dur-medium) var(--ease-standard);
 }
 
 .hero-badge span {
@@ -344,8 +575,7 @@ a, button, [role="button"], input, textarea, select {
   height: 6px;
   border-radius: 50%;
   background: var(--color-cyan);
-  box-shadow: 0 0 8px var(--color-cyan);
-  animation: neonPulse 2s infinite;
+  animation: softPulse 2.5s ease-in-out infinite;
 }
 
 /* ═══════════════════════════════════════════════════════════════════
@@ -355,22 +585,23 @@ a, button, [role="button"], input, textarea, select {
   position: relative;
   font-size: 0.875rem;
   font-weight: 500;
-  color: rgba(240, 244, 255, 0.7);
-  transition: color 0.3s;
+  color: var(--color-muted);
+  transition: color var(--dur-medium) var(--ease-standard);
   text-decoration: none;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
+  padding: 0.25rem 0;
 }
 
 .nav-link::after {
   content: '';
   position: absolute;
-  bottom: -4px;
+  bottom: -2px;
   left: 0;
   width: 0;
-  height: 1px;
-  background: var(--gradient-brand);
-  transition: width 0.3s var(--ease-out-expo);
-  box-shadow: 0 0 6px rgba(0,245,255,0.6);
+  height: 2px;
+  background: var(--color-cyan);
+  border-radius: 1px;
+  transition: width var(--dur-medium) var(--ease-emphasized);
 }
 
 .nav-link:hover {
@@ -381,6 +612,35 @@ a, button, [role="button"], input, textarea, select {
   width: 100%;
 }
 
+/* Theme toggle button — Google circular icon button */
+.theme-toggle-btn {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition:
+    background var(--dur-short) var(--ease-standard),
+    box-shadow  var(--dur-short) var(--ease-standard);
+}
+
+.theme-toggle-btn:hover {
+  background: var(--state-hover);
+}
+
+.theme-toggle-btn:active {
+  background: var(--state-pressed);
+}
+
+.theme-toggle-icon {
+  animation: iconSpinIn var(--dur-medium) var(--ease-decelerate) both;
+}
+
 /* ═══════════════════════════════════════════════════════════════════
    PROJECT CARDS
    ═══════════════════════════════════════════════════════════════════ */
@@ -388,14 +648,19 @@ a, button, [role="button"], input, textarea, select {
   position: relative;
   overflow: hidden;
   border-radius: 16px;
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  transition: all 0.4s var(--ease-out-expo);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  transition:
+    box-shadow var(--dur-long) var(--ease-standard),
+    border-color var(--dur-long) var(--ease-standard),
+    transform var(--dur-long) var(--ease-emphasized);
   will-change: transform;
 }
 
 .project-card:hover {
-  border-color: rgba(0, 245, 255, 0.3);
+  border-color: var(--color-cyan);
+  box-shadow: var(--glow-cyan);
+  transform: translateY(-4px);
 }
 
 .project-card-overlay {
@@ -403,26 +668,26 @@ a, button, [role="button"], input, textarea, select {
   inset: 0;
   background: linear-gradient(
     to top,
-    rgba(5, 5, 8, 0.95) 0%,
-    rgba(5, 5, 8, 0.5) 50%,
+    var(--card-overlay-from) 0%,
+    var(--card-overlay-mid) 50%,
     transparent 100%
   );
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   padding: 2rem;
-  transition: all 0.4s var(--ease-out-expo);
+  transition: all var(--dur-long) var(--ease-standard);
 }
 
 .project-card-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.8s var(--ease-out-expo);
+  transition: transform 0.7s var(--ease-emphasized);
 }
 
 .project-card:hover .project-card-image {
-  transform: scale(1.08);
+  transform: scale(1.06);
 }
 
 /* ═══════════════════════════════════════════════════════════════════
@@ -432,10 +697,14 @@ a, button, [role="button"], input, textarea, select {
   position: relative;
   padding: 2rem;
   border-radius: 16px;
-  background: rgba(255, 255, 255, 0.025);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
   overflow: hidden;
-  transition: all 0.4s var(--ease-out-expo);
+  transition:
+    box-shadow var(--dur-long) var(--ease-standard),
+    border-color var(--dur-long) var(--ease-standard),
+    transform var(--dur-long) var(--ease-emphasized),
+    background var(--dur-long) var(--ease-standard);
   cursor: pointer;
 }
 
@@ -445,7 +714,7 @@ a, button, [role="button"], input, textarea, select {
   inset: 0;
   background: var(--gradient-subtle);
   opacity: 0;
-  transition: opacity 0.4s;
+  transition: opacity var(--dur-medium) var(--ease-standard);
 }
 
 .service-card:hover::before {
@@ -453,8 +722,8 @@ a, button, [role="button"], input, textarea, select {
 }
 
 .service-card:hover {
-  border-color: rgba(0, 245, 255, 0.25);
-  transform: translateY(-6px);
+  border-color: var(--color-cyan);
+  transform: translateY(-5px);
   box-shadow: var(--glow-cyan);
 }
 
@@ -463,26 +732,29 @@ a, button, [role="button"], input, textarea, select {
    ═══════════════════════════════════════════════════════════════════ */
 .form-field {
   width: 100%;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--field-bg);
+  border: 1px solid var(--field-border);
   border-radius: 10px;
   padding: 0.875rem 1.25rem;
-  color: var(--color-white);
+  color: var(--field-color);
   font-family: var(--font-sans);
   font-size: 0.9375rem;
   outline: none;
-  transition: all 0.3s var(--ease-out-expo);
+  transition:
+    border-color var(--dur-medium) var(--ease-standard),
+    background   var(--dur-medium) var(--ease-standard),
+    box-shadow   var(--dur-medium) var(--ease-standard);
   resize: none;
 }
 
 .form-field::placeholder {
-  color: rgba(107, 114, 128, 0.8);
+  color: var(--field-placeholder);
 }
 
 .form-field:focus {
-  border-color: rgba(0, 245, 255, 0.5);
-  background: rgba(0, 245, 255, 0.04);
-  box-shadow: 0 0 0 3px rgba(0, 245, 255, 0.08);
+  border-color: var(--color-cyan);
+  background: var(--state-focus);
+  box-shadow: 0 0 0 3px var(--state-focus);
 }
 
 /* ═══════════════════════════════════════════════════════════════════
@@ -507,6 +779,6 @@ a, button, [role="button"], input, textarea, select {
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  opacity: 0.025;
+  opacity: 0.018;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
 }

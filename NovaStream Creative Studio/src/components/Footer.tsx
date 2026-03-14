@@ -1,72 +1,65 @@
 import { motion } from 'framer-motion';
 
 const SOCIAL_LINKS = [
-  { label: 'Twitter', href: 'https://twitter.com' },
-  { label: 'Instagram', href: 'https://instagram.com' },
+  { label: 'GitHub',   href: 'https://github.com' },
   { label: 'LinkedIn', href: 'https://linkedin.com' },
+  { label: 'Twitter',  href: 'https://twitter.com' },
   { label: 'Dribbble', href: 'https://dribbble.com' },
 ];
 
 const FOOTER_NAV = [
-  { label: 'Work', href: '#projects' },
-  { label: 'Services', href: '#services' },
-  { label: 'About', href: '#about' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Skills',   href: '#skills' },
+  { label: 'Work',     href: '#projects' },
+  { label: 'About',    href: '#about' },
+  { label: 'Contact',  href: '#contact' },
 ];
 
 export default function Footer() {
   return (
     <footer
       style={{
-        borderTop: '1px solid rgba(255,255,255,0.06)',
+        borderTop: '1px solid var(--glass-border)',
         padding: '3rem 2rem',
         position: 'relative',
         overflow: 'hidden',
       }}
     >
-      {/* Glow bg */}
+      {/* Ambient glow */}
       <div style={{
-        position: 'absolute',
-        bottom: '-40%',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        width: 600,
-        height: 200,
-        background: 'radial-gradient(ellipse, rgba(0,245,255,0.06) 0%, transparent 70%)',
+        position: 'absolute', bottom: '-40%', left: '50%', transform: 'translateX(-50%)',
+        width: 600, height: 200,
+        background: 'radial-gradient(ellipse, color-mix(in srgb, var(--color-cyan) 5%, transparent) 0%, transparent 70%)',
         pointerEvents: 'none',
       }} />
 
       <div style={{ maxWidth: 1200, margin: '0 auto', position: 'relative' }}>
         {/* Top row */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1.5rem', marginBottom: '2.5rem' }}>
+        <div style={{
+          display: 'flex', alignItems: 'center',
+          justifyContent: 'space-between', flexWrap: 'wrap',
+          gap: '1.5rem', marginBottom: '2.5rem',
+        }}>
           {/* Logo */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <div style={{
-              width: 28,
-              height: 28,
-              borderRadius: 7,
-              background: 'linear-gradient(135deg, #00f5ff, #bf00ff)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              boxShadow: '0 0 12px rgba(0,245,255,0.3)',
+              width: 30, height: 30, borderRadius: 8,
+              background: 'var(--gradient-brand)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              boxShadow: 'var(--glow-violet)',
             }}>
-              <span style={{ color: '#fff', fontWeight: 800, fontSize: 12, fontFamily: 'var(--font-display)' }}>N</span>
+              <span style={{ color: '#fff', fontWeight: 800, fontSize: 13, fontFamily: 'var(--font-display)' }}>T</span>
             </div>
             <span style={{
-              fontFamily: 'var(--font-display)',
-              fontWeight: 700,
-              fontSize: '1rem',
-              background: 'linear-gradient(135deg, #00f5ff, #bf00ff)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
+              fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '0.95rem',
+              background: 'var(--gradient-brand)',
+              WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
+              letterSpacing: '-0.01em',
             }}>
-              NovaStream
+              TYN Creative
             </span>
           </div>
 
-          {/* Nav links */}
+          {/* Nav */}
           <nav style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap' }}>
             {FOOTER_NAV.map((link) => (
               <a
@@ -84,7 +77,7 @@ export default function Footer() {
             ))}
           </nav>
 
-          {/* Social links */}
+          {/* Social */}
           <div style={{ display: 'flex', gap: '1rem' }}>
             {SOCIAL_LINKS.map((s) => (
               <motion.a
@@ -93,7 +86,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ y: -2, color: 'var(--color-cyan)' }}
-                style={{ fontSize: '0.8125rem', color: 'rgba(240,244,255,0.4)', textDecoration: 'none' }}
+                style={{ fontSize: '0.8125rem', color: 'var(--color-muted-2)', textDecoration: 'none' }}
               >
                 {s.label}
               </motion.a>
@@ -102,15 +95,15 @@ export default function Footer() {
         </div>
 
         {/* Divider */}
-        <div style={{ height: 1, background: 'rgba(255,255,255,0.05)', marginBottom: '1.5rem' }} />
+        <div style={{ height: 1, background: 'var(--glass-border)', marginBottom: '1.5rem' }} />
 
-        {/* Bottom row */}
+        {/* Bottom */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 8 }}>
-          <p style={{ fontSize: '0.8125rem', color: 'rgba(240,244,255,0.3)' }}>
-            © 2024 NovaStream Creative Studio. All rights reserved.
+          <p style={{ fontSize: '0.8125rem', color: 'var(--color-muted-2)' }}>
+            © 2025 Nguyen Thi My Tuyen · TYN Creative. All rights reserved.
           </p>
-          <p style={{ fontSize: '0.8125rem', color: 'rgba(240,244,255,0.2)' }}>
-            Designed & built with ✦ passion
+          <p style={{ fontSize: '0.8125rem', color: 'var(--color-muted-2)', opacity: 0.7 }}>
+            Designed &amp; built with ✦ in Ho Chi Minh City
           </p>
         </div>
       </div>

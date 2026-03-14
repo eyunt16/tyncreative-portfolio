@@ -3,30 +3,30 @@ import { motion } from 'framer-motion';
 import { fetchProjects } from '../services/api';
 import type { Project } from '../types';
 
-const CATEGORIES = ['All', 'Branding', 'Web Development', 'UI/UX Design', 'AR/VR', '3D / WebGL'];
+const CATEGORIES = ['All', 'Web App', 'UI/UX', 'Landing Page', '3D / WebGL', 'Open Source'];
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
-  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  const [tilt, setTilt]       = useState({ x: 0, y: 0 });
   const [hovered, setHovered] = useState(false);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientY - rect.top) / rect.height - 0.5) * 12;
-    const y = -((e.clientX - rect.left) / rect.width - 0.5) * 12;
+    const x = ((e.clientY - rect.top) / rect.height - 0.5) * 8;
+    const y = -((e.clientX - rect.left) / rect.width - 0.5) * 8;
     setTilt({ x, y });
   };
 
   return (
     <motion.div
       className="project-card"
-      initial={{ opacity: 0, y: 60 }}
+      initial={{ opacity: 0, y: 48 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
-      transition={{ duration: 0.7, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 0.65, delay: index * 0.09, ease: [0.05, 0.7, 0.1, 1] }}
       style={{
         height: index % 3 === 0 ? 420 : 360,
-        transform: `perspective(800px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
-        transition: hovered ? 'transform 0.1s linear' : 'transform 0.5s ease',
+        transform: `perspective(900px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
+        transition: hovered ? 'transform 0.1s linear' : 'transform 0.55s var(--ease-standard)',
       }}
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setHovered(true)}
@@ -44,52 +44,45 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         {/* Tags */}
         <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: '0.75rem' }}>
           <span style={{
-            fontSize: '0.7rem',
-            fontWeight: 600,
-            letterSpacing: '0.1em',
-            textTransform: 'uppercase',
+            fontSize: '0.7rem', fontWeight: 600,
+            letterSpacing: '0.1em', textTransform: 'uppercase',
             color: 'var(--color-cyan)',
-            padding: '2px 10px',
-            borderRadius: 50,
-            border: '1px solid rgba(0,245,255,0.3)',
-            background: 'rgba(0,245,255,0.08)',
+            padding: '2px 10px', borderRadius: 50,
+            border: '1px solid color-mix(in srgb, var(--color-cyan) 30%, transparent)',
+            background: 'color-mix(in srgb, var(--color-cyan) 10%, transparent)',
           }}>
             {project.category}
           </span>
           <span style={{
-            fontSize: '0.7rem',
-            fontWeight: 500,
-            color: 'rgba(240,244,255,0.5)',
-            padding: '2px 10px',
-            borderRadius: 50,
-            border: '1px solid rgba(255,255,255,0.1)',
+            fontSize: '0.7rem', fontWeight: 500,
+            color: 'var(--color-muted)',
+            padding: '2px 10px', borderRadius: 50,
+            border: '1px solid var(--glass-border)',
           }}>
             {project.year}
           </span>
         </div>
 
-        <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '1.25rem', marginBottom: '0.5rem', color: 'var(--color-white)' }}>
+        <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '1.2rem', marginBottom: '0.5rem', color: 'var(--color-white)' }}>
           {project.title}
         </h3>
 
         <motion.p
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: hovered ? 1 : 0, height: hovered ? 'auto' : 0 }}
-          transition={{ duration: 0.3 }}
-          style={{ fontSize: '0.875rem', color: 'rgba(240,244,255,0.6)', lineHeight: 1.6, overflow: 'hidden' }}
+          transition={{ duration: 0.28, ease: [0.2, 0, 0, 1] }}
+          style={{ fontSize: '0.875rem', color: 'var(--color-muted)', lineHeight: 1.65, overflow: 'hidden' }}
         >
           {project.description}
         </motion.p>
       </div>
 
-      {/* Glow on hover */}
+      {/* Subtle inner glow on hover */}
       {hovered && (
         <div style={{
-          position: 'absolute',
-          inset: 0,
-          boxShadow: 'inset 0 0 60px rgba(0,245,255,0.08)',
-          pointerEvents: 'none',
-          borderRadius: 16,
+          position: 'absolute', inset: 0,
+          boxShadow: 'inset 0 0 60px color-mix(in srgb, var(--color-cyan) 6%, transparent)',
+          pointerEvents: 'none', borderRadius: 16,
         }} />
       )}
     </motion.div>
@@ -97,9 +90,9 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 }
 
 export default function ProjectsSection() {
-  const [projects, setProjects] = useState<Project[]>([]);
+  const [projects, setProjects]         = useState<Project[]>([]);
   const [activeCategory, setActiveCategory] = useState('All');
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading]           = useState(true);
 
   useEffect(() => {
     setLoading(true);
@@ -114,10 +107,10 @@ export default function ProjectsSection() {
       <div style={{ maxWidth: 1200, margin: '0 auto' }}>
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 32 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.7, ease: [0.2, 0, 0, 1] }}
           style={{ marginBottom: '3rem' }}
         >
           <p className="section-label">Selected Work</p>
@@ -130,8 +123,8 @@ export default function ProjectsSection() {
             lineHeight: 1.1,
             marginBottom: '1.5rem',
           }}>
-            Projects that<br />
-            <span className="text-gradient">push limits</span>
+            Things I've{' '}
+            <span className="text-gradient">built</span>
           </h2>
 
           {/* Category Filter */}
@@ -142,15 +135,20 @@ export default function ProjectsSection() {
                 onClick={() => setActiveCategory(cat)}
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.96 }}
+                transition={{ duration: 0.18 }}
                 style={{
                   padding: '0.4rem 1.1rem',
                   borderRadius: 50,
                   fontSize: '0.8rem',
                   fontWeight: 500,
-                  border: activeCategory === cat ? '1px solid rgba(0,245,255,0.6)' : '1px solid rgba(255,255,255,0.1)',
-                  background: activeCategory === cat ? 'rgba(0,245,255,0.1)' : 'transparent',
-                  color: activeCategory === cat ? 'var(--color-cyan)' : 'rgba(240,244,255,0.5)',
-                  transition: 'all 0.25s ease',
+                  border: activeCategory === cat
+                    ? '1px solid var(--color-cyan)'
+                    : '1px solid var(--glass-border)',
+                  background: activeCategory === cat
+                    ? 'color-mix(in srgb, var(--color-cyan) 12%, transparent)'
+                    : 'transparent',
+                  color: activeCategory === cat ? 'var(--color-cyan)' : 'var(--color-muted)',
+                  transition: 'all 0.22s var(--ease-standard)',
                   cursor: 'none',
                   fontFamily: 'var(--font-sans)',
                 }}
@@ -164,8 +162,12 @@ export default function ProjectsSection() {
         {/* Grid */}
         {loading ? (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '1.5rem' }}>
-            {[1,2,3].map(i => (
-              <div key={i} style={{ height: 380, borderRadius: 16, background: 'rgba(255,255,255,0.03)', animation: 'neonPulse 2s infinite' }} />
+            {[1, 2, 3].map(i => (
+              <div key={i} style={{
+                height: 380, borderRadius: 16,
+                background: 'var(--card-bg)',
+                animation: 'softPulse 2.5s ease-in-out infinite',
+              }} />
             ))}
           </div>
         ) : (
